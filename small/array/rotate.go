@@ -1,18 +1,44 @@
 package main
 
-import (
-	"log"
-)
-
-func main() {
+/* func main() {
 	in := []int{1, 2, 3, 4, 5, 6, 7}
-	rotate(in, 1)
+	rotate(in, 2)
+	log.Println("----------------------------------")
 	for i := range in {
 		log.Println(in[i])
 	}
-}
+} */
 
 func rotate(nums []int, k int) {
+	l := len(nums)
+	if l <= 0 {
+		return
+	}
+	k = k % l
+	var i int
+	for i < l-1 {
+		n := idx(i, k, l)
+		temp := nums[i]
+		nums[i] = nums[n]
+		nums[n] = temp
+		i++
+	}
+
+}
+
+func idx(curr, k, l int) int {
+	n := (curr - k + l) % l
+	if curr < k {
+		return n
+	}
+
+	for n < k || n < curr {
+		n = idx(n, k, l)
+	}
+	return n
+}
+
+/* func rotate(nums []int, k int) {
 	l := len(nums)
 	if l <= 0 {
 		return
@@ -29,7 +55,7 @@ func rotate(nums []int, k int) {
 		nums[0] = temp
 		k--
 	}
-}
+} */
 
 /* func rotate(nums []int, k int) {
 	l := len(nums)
